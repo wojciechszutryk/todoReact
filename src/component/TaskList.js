@@ -8,10 +8,20 @@ class TaskList extends React.Component {
         search: '',
     }
 
+    handleSearchChange = (e) => {
+        this.setState({
+            search: e.target.value
+        })
+    }
+
     handleSortChange = (e) => {
         this.setState({
             sort: e.target.value
         })
+    }
+
+    searchTask = (tasks) => {
+        return tasks.filter(task => task.text.includes(this.state.search));
     }
 
     sortFinished = (finished) => {
@@ -47,10 +57,13 @@ class TaskList extends React.Component {
         return finished;
     }
 
+
     render() {
-        const unfinished = this.props.tasks.filter(task => !task.finishDate)
+        let unfinished = this.props.tasks.filter(task => !task.finishDate)
         let finished = this.props.tasks.filter(task => task.finishDate)
+        unfinished = this.searchTask(unfinished)
         finished = this.sortFinished(finished)
+
 
         const unfinishedTasks = unfinished.map(task => {
             if(!task.finishDate){
@@ -68,9 +81,9 @@ class TaskList extends React.Component {
                 <h2>Task to Do:</h2>
                 <label htmlFor="search">
                     Search Task
-                    <input type="text" id="search" value={this.state.search}/>
+                    <input type="text" id="search" value={this.state.search} onChange={this.handleSearchChange}/>
                 </label>
-                {unfinishedTasks.length > 0 ? unfinishedTasks : <p>Currently you have no task to do, you can add one by filling in the form above</p>}
+                {unfinishedTasks.length > 0 ? unfinishedTasks : <p>Currently you have no task to do with this search criteria, you can add one by filling in the form above</p>}
                 <h3>Finished Tasks:</h3>
                 <label htmlFor="sort">Sort by
                     <select name="sort" id="sort" onChange={this.handleSortChange}>
