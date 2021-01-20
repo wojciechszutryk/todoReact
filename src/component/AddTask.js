@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './AddTask.css'
+import '../stylesheets/AddTask.sass'
 
 class AddTask extends Component {
     state = {
@@ -42,19 +42,27 @@ class AddTask extends Component {
     }
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmitTask}>
-                    <label htmlFor="text">Task description</label>
-                        <input type="text" id="text" value={this.state.text} onChange={this.handleDescriptionChange}/>
-                    {this.state.textError && <p style={{color: 'red'}}>Don't add empty task</p>}
+            <div className='toDoList container'>
+                <form className='row' onSubmit={this.handleSubmitTask}>
 
-                    <label htmlFor="important">Important</label>
+                    <div className='col-md-4'>
+                        <label htmlFor="important">Important</label>
                         <input type="checkbox" id="important" checked={this.state.important} onChange={this.handleCheckboxChange}/>
+                    </div>
 
-                    <label htmlFor="deadline">Deadline</label>
+                    <div className='col-md-4'>
+                        <label htmlFor="text">Task description</label>
+                        <input type="text" id="text" value={this.state.text} onChange={this.handleDescriptionChange} placeholder={this.state.textError && `Don't add empty task`}/>
+                    </div>
+
+                    <div className='col-md-4'>
+                        <label htmlFor="deadline">Deadline</label>
                         <input type="date" id="deadline" value={this.state.deadline} onChange={this.handleDate} min={new Date().toISOString().slice(0,10)} max='2024-01-31'/>
+                    </div>
 
+                    <div className='col-8 offset-2 mt-4 col-md-2 offset-md-5 mt-md-1'>
                         <button>Add</button>
+                    </div>
                 </form>
             </div>
         );

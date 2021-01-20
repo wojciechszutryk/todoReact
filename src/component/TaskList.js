@@ -1,5 +1,6 @@
 import React from 'react';
 import Task from './Task.js'
+import '../stylesheets/TaskList.sass'
 import FinishedTask from './FinishedTask.js'
 
 class TaskList extends React.Component {
@@ -77,23 +78,26 @@ class TaskList extends React.Component {
         });
 
         return (
-            <div>
+            <div className='currentTask container'>
                 <h2>Task to Do:</h2>
                 <label htmlFor="search">
-                    Search Task
-                    <input type="text" id="search" value={this.state.search} onChange={this.handleSearchChange}/>
+                    <input type="text" id="search" value={this.state.search} onChange={this.handleSearchChange} placeholder="Search Task"/>
                 </label>
-                {unfinishedTasks.length > 0 ? unfinishedTasks : <p>Currently you have no task to do with this search criteria, you can add one by filling in the form above</p>}
-                <h3>Finished Tasks:</h3>
-                <label htmlFor="sort">Sort by
-                    <select name="sort" id="sort" onChange={this.handleSortChange}>
-                        <option value="dateDesc">Finish date descending</option>
-                        <option value="dateAsc">Finish date ascending</option>
-                        <option value="nameDesc">Description descending</option>
-                        <option value="nameAsc">Description ascending</option>
-                    </select>
-                </label>
-                {finishedTasks.length > 0 ? finishedTasks : <p>Task history clean</p>}
+                <section className='unfinished row justify-content-center'>
+                        {unfinishedTasks.length > 0 ? unfinishedTasks : <p className='message'>Currently you have no task to do with this search criteria, you can add one by filling in the form above</p>}
+                </section>
+                <section className='finished mt-3'>
+                    <h3>Finished Tasks:</h3>
+                    <label htmlFor="sort" className='mb-3'>Sort by
+                        <select name="sort" id="sort" onChange={this.handleSortChange}>
+                            <option value="dateDesc">Finish date descending</option>
+                            <option value="dateAsc">Finish date ascending</option>
+                            <option value="nameDesc">Description descending</option>
+                            <option value="nameAsc">Description ascending</option>
+                        </select>
+                    </label>
+                    {finishedTasks.length > 0 ? finishedTasks : <p>Task history clean</p>}
+                </section>
             </div>
         );
     }

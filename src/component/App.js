@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import './App.css';
+import '../stylesheets/App.sass';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import TaskList from './TaskList.js';
 import AddTask from './AddTask.js';
 
@@ -9,15 +10,15 @@ class App extends Component {
     tasks: [
       {
         id: 0,
-        text: 'alibaba',
+        text: 'Wash a Car',
         startDate: new Date().toISOString().slice(0,10),
         deadline: '2022-12-31',
-        important: true,
+        important: false,
         finishDate: false,
       },
       {
         id: 1,
-        text: 'ala ma kota',
+        text: 'Go for a walk',
         startDate: '2019-01-30',
         deadline: '2020-11-30',
         important: false,
@@ -25,15 +26,15 @@ class App extends Component {
       },
       {
         id: 2,
-        text: 'wojtek',
+        text: 'Do the shopping',
         startDate: '2020-12-30',
         deadline: '2021-12-30',
-        important: false,
+        important: true,
         finishDate: false,
       },
       {
         id: 4,
-        text: 'gdsgdsgdgs',
+        text: 'Buy a gift for John',
         startDate: new Date().toISOString().slice(0,10),
         deadline: '2022-12-31',
         important: true,
@@ -83,10 +84,17 @@ class App extends Component {
   }
   render(){
     return (
-        <div className="App">
-          <h1>ToDo App</h1>
-          <AddTask addTask={this.addTask}/>
-          <TaskList tasks={this.state.tasks} finish={this.handleFinishTask} delete={this.handleDeleteTask}/>
+        <div className="App container-fluid">
+          <div className="row">
+            <h1 className="jumbotron text-center p-2 col-12" >ToDo App</h1>
+            <section className='col-12 mb-3'>
+              <AddTask addTask={this.addTask}/>
+            </section>
+            <hr className="col-12"/>
+            <article className='col-12'>
+              <TaskList tasks={this.state.tasks} finish={this.handleFinishTask} delete={this.handleDeleteTask}/>
+            </article>
+          </div>
         </div>
     )
   }
